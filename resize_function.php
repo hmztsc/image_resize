@@ -12,19 +12,33 @@ function smart_resize_image($file,$output='file',$width=0,$height=0,$size="cover
     # Calculating proportionality
     if ($size=="contain") {
 
-        $x_ratio = $width / $width_old;
-        $y_ratio = $height / $height_old;
 
-        if (($width_old <= $width) && ($height_old <= $height)) {
-            $final_width = $width_old;
-            $final_height = $height_old;
-        } elseif (($x_ratio * $height_old) < $height) {
-            $final_height = ceil($x_ratio * $height_old);
+        if($width_old > $width)
+        {
             $final_width = $width;
-        } else {
-            $final_width = ceil($y_ratio * $width_old);
-            $final_height = $height;
+            $final_height = $width * ($height_old / $width_old);
         }
+        else if($height_old > $height)
+        {
+            $final_height = $height;
+            $final_width = $height * ($width_old / $height_old);
+        }
+        else
+        {
+            if($width_old > $height_old){
+
+                $final_width = $width;
+                $final_height = $width * ($height_old / $width_old);
+            }
+            else if($width_old < $height_old){
+
+                $final_width = $height * ($width_old / $height_old);
+                $final_height = $height;
+
+            }
+        }
+
+
     }
     else if($size=="cover") {
 
@@ -109,7 +123,7 @@ function smart_resize_image($file,$output='file',$width=0,$height=0,$size="cover
 
         imagecopyresampled($image_resized, $image, (($width - $final_width)/ 2), (($height - $final_height) / 2), 0, 0, $final_width, $final_height, $width_old, $height_old);
     }
-    
+
     # Taking care of original, if needed
     if ( $delete_original ) {
         if ( $use_linux_commands ) exec('rm '.$file);
