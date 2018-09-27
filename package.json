@@ -1,0 +1,16 @@
+{
+  "name": "resize_image",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fancyapps/fancybox": "^3.4.2",
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1"
+  }
+}
